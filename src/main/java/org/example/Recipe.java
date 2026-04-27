@@ -36,4 +36,13 @@ public class Recipe {
     public void setInstructions(String instructions) {
         this.instructions = instructions;
     }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "title='" + title + '\'' +
+                ", ingredients=" + ingredients +
+                ", instructions='" + instructions + '\'' +
+                '}';
+    }
 }
