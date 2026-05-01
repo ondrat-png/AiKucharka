@@ -13,7 +13,7 @@ public class FileRecipeStorage implements RecipeStorage {
     @Override
     public void saveRecipe(Recipe recipe) throws Exception {
         if(saveRecipes == null){
-            throw  new Exception("Recipe not saved");
+            throw  new Exception("Recipe can not be null");
         }
         saveRecipes.add(recipe);
         System.out.println("Recipe saved: " + recipe.getTitle());

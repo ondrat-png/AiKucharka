@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 public class GroqTest {
     public static void main(String[] args) {
-        String apiKey = "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";
+        String apiKey = "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";
         String url = "https://api.groq.com/openai/v1/chat/completions";
 
         String jsonBody = """
