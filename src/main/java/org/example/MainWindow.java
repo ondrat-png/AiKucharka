@@ -7,13 +7,13 @@ import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame {
 
-    private JTextField ingredientField;
+    private JTextArea ingredientField;
     private JButton generateButton;
     private JButton favoritesButton;
 
     public MainWindow() {
         this.setTitle("Recipe Generator");
-        this.setSize(400, 150);
+        this.setSize(400, 300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel mainPanel = new JPanel();
@@ -22,8 +22,9 @@ public class MainWindow extends JFrame {
         JLabel infoLabel = new JLabel("Enter ingredients:");
         mainPanel.add(infoLabel, BorderLayout.NORTH);
 
-        ingredientField = new JTextField();
-        mainPanel.add(ingredientField, BorderLayout.CENTER);
+        ingredientField = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(ingredientField);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
 
