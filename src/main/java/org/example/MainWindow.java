@@ -2,8 +2,7 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class MainWindow extends JFrame {
 
@@ -40,7 +39,25 @@ public class MainWindow extends JFrame {
 
         generateButton.addActionListener(e -> {
             String ingredients = ingredientField.getText();
-            System.out.println("Generating recipe for: " + ingredients);
+
+            if (ingredients.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter ingredients");
+                return;
+            }
+
+            ingredients = ingredients.replace("\n", ", ");
+            System.out.println("Generating recipe for ingredients: " + ingredients);
+
+            try {
+                GroqApiClient apiClient = new GroqApiClient();
+                Recipe generatedRecipe = apiClient.generateRecipe(ingredients);
+                RecipeWindow recipeWindow = new RecipeWindow(generatedRecipe);
+                recipeWindow.setVisible(true);
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+
+
         });
 
         favoritesButton.addActionListener(e -> {
