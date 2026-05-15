@@ -10,7 +10,6 @@ public class RecipeWindow extends JFrame {
 
     public RecipeWindow(Recipe recipe) {
         this.currentRecipe = recipe;
-
         this.setTitle("Your Recipe: " + recipe.getTitle());
         this.setSize(500, 400);
 

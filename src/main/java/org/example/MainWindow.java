@@ -13,6 +13,7 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         this.setTitle("Recipe Generator");
         this.setSize(400, 300);
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel mainPanel = new JPanel();
@@ -54,10 +55,11 @@ public class MainWindow extends JFrame {
                 RecipeWindow recipeWindow = new RecipeWindow(generatedRecipe);
                 recipeWindow.setVisible(true);
             } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(this,
+                        "Error communicating with AI: " + ex.getMessage(),
+                        "Connection Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
-
-
         });
 
         favoritesButton.addActionListener(e -> {
