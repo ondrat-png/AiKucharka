@@ -18,8 +18,11 @@ public class MainWindow extends JFrame {
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel infoLabel = new JLabel("Enter ingredients:");
+        // Změna na písmo Arial, tučně (BOLD), velikost 16
+        infoLabel.setFont(new Font("Arial", Font.BOLD, 16));
         mainPanel.add(infoLabel, BorderLayout.NORTH);
 
         ingredientField = new JTextArea();
@@ -65,11 +68,6 @@ public class MainWindow extends JFrame {
         favoritesButton.addActionListener(e -> {
             System.out.println("Opening favorites");
         });
-    }
-
-    public  static void main(String[] args) {
-        MainWindow window = new MainWindow();
-        window.setVisible(true);
     }
 
 }

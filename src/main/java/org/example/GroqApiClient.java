@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class GroqApiClient {
 
-    // Tvůj API klíč (tady vlož ten svůj reálný)
     private static final String API_KEY = "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";
     private static final String API_URL = "https://api.groq.com/openai/v1/chat/completions";
 
@@ -19,6 +18,7 @@ public class GroqApiClient {
      * Tato metoda vezme text se surovinami od uživatele, pošle ho do AI
      * a vrátí hotový objekt Recipe.
      */
+    //AI
     public Recipe generateRecipe(String userIngredients) throws Exception {
 
         // 1. Sestavení instrukcí pro AI
