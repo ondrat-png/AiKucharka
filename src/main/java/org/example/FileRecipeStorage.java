@@ -3,8 +3,7 @@ package org.example;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 public class FileRecipeStorage implements RecipeStorage {
@@ -57,7 +56,43 @@ public class FileRecipeStorage implements RecipeStorage {
     }
 
     public void  loadRecipeFromFile(){
+        try {
+            FileReader fileReader = new FileReader(FILE_NAME);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+            String content = "";
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                content = content + line;
+            }
+            bufferedReader.close();
+
+            JSONArray jsonArray = new JSONArray(content);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonRecipe = jsonArray.getJSONObject(i);
+
+                String title = jsonRecipe.getString("title");
+                String instructions = jsonRecipe.getString("instructions");
+                JSONArray ingredientsArray = jsonRecipe.getJSONArray("ingredients");
+
+                ArrayList<String> ingredients = new ArrayList<>();
+                for (Object item : ingredientsArray.toList()) {
+                    ingredients.add(item.toString());
+                }
+
+                Recipe recipe = new Recipe(title, instructions);
+                recipe.setIngredients(ingredients);
+                saveRecipes.add(recipe);
+            }
+
+            System.out.println("Recipes loaded: " + saveRecipes.size());
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error loading recipes: " + e.getMessage());
+        }
 
     }
 }
