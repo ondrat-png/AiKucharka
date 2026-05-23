@@ -2,6 +2,8 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class FavoritesWindow  extends JFrame {
@@ -34,6 +36,20 @@ public class FavoritesWindow  extends JFrame {
         mainPanel.add(closeButton, BorderLayout.SOUTH);
 
         this.add(mainPanel);
+
+        recipeList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int selectedIndex = recipeList.getSelectedIndex();
+                    if (selectedIndex >= 0) {
+                        Recipe selectedRecipe = favoriteRecipes.get(selectedIndex);
+                        RecipeWindow recipeWindow = new RecipeWindow(selectedRecipe, new FileRecipeStorage());
+                        recipeWindow.setVisible(true);
+                    }
+                }
+            }
+        });
 
         closeButton.addActionListener(e -> {
             this.dispose();
