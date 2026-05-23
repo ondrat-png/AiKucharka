@@ -1,29 +1,13 @@
 [
     {
-        "instructions": "Cook pasta according to package directions, then combine with melted cheese and heavy cream. Stir until the cheese is well coated and the cream is heated through, season with salt and pepper to taste. Serve hot and enjoy.",
-        "ingredients": [
-            "pasta",
-            "cheese",
-            "cream"
-        ],
-        "title": "Creamy Cheese Pasta"
-    },
-    {
-        "instructions": "Cut all the ingredients into bite-sized pieces, then combine them in a bowl and serve.",
-        "ingredients": [
-            "tomato",
-            "lettuce",
-            "cucumber"
-        ],
-        "title": "Simple Salad"
-    },
-    {
-        "instructions": "Preheat the oven to 180°C. Cook the pasta according to package instructions, then mix with heavy cream and grated cheese. Transfer to a baking dish, top with extra cheese, and bake for 15-20 minutes or until golden brown.",
+        "instructions": "Cook the pasta according to the package instructions. In a saucepan, melt the butter over medium heat. Add minced garlic and cook for 1 minute. Then add the cream and bring to a simmer. Reduce the heat to low and add the cheese, stirring until melted. Combine the cooked pasta and the cheese sauce, then serve.",
         "ingredients": [
             "200g pasta",
-            "150g cheese",
-            "200ml heavy cream"
+            "100g butter",
+            "3 cloves garlic",
+            "200g cheese",
+            "200ml cream"
         ],
-        "title": "Creamy Pasta Bake"
+        "title": "Creamy Garlic Pasta"
     }
 ]

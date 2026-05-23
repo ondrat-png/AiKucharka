@@ -69,7 +69,7 @@ public class MainWindow extends JFrame {
 
         favoritesButton.addActionListener(e -> {
             try {
-                FavoritesWindow favoritesWindow = new FavoritesWindow(storage.getAllRecipes());
+                FavoritesWindow favoritesWindow = new FavoritesWindow(storage.getAllRecipes(), storage);
                 favoritesWindow.setVisible(true);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error opening favorites: " + ex.getMessage());            }

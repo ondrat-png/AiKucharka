@@ -8,7 +8,13 @@ import java.util.ArrayList;
 
 public class FavoritesWindow  extends JFrame {
 
-    public  FavoritesWindow(ArrayList<Recipe> favoriteRecipes) {
+    private ArrayList<Recipe> favoriteRecipes;
+    private FileRecipeStorage storage;
+
+    public  FavoritesWindow(ArrayList<Recipe> favoriteRecipes, FileRecipeStorage storage) {
+        this.favoriteRecipes = favoriteRecipes;
+        this.storage = storage;
+
         this.setTitle("Favorite recipes");
         this.setSize(400, 300);
 
@@ -44,7 +50,7 @@ public class FavoritesWindow  extends JFrame {
                     int selectedIndex = recipeList.getSelectedIndex();
                     if (selectedIndex >= 0) {
                         Recipe selectedRecipe = favoriteRecipes.get(selectedIndex);
-                        RecipeWindow recipeWindow = new RecipeWindow(selectedRecipe, new FileRecipeStorage());
+                        RecipeWindow recipeWindow = new RecipeWindow(selectedRecipe, storage);
                         recipeWindow.setVisible(true);
                     }
                 }
