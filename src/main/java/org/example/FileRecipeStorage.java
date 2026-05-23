@@ -22,6 +22,12 @@ public class FileRecipeStorage implements RecipeStorage {
         if(recipe == null){
             throw  new Exception("Recipe can not be null");
         }
+
+        for (Recipe existingRecipe : saveRecipes) {
+            if (existingRecipe.getTitle().equalsIgnoreCase(recipe.getTitle())) {
+                throw new Exception("Recipe with the same title already exists.");
+            }
+        }
         saveRecipes.add(recipe);
         System.out.println("Recipe saved: " + recipe.getTitle());
         saveRecipesToFile();
