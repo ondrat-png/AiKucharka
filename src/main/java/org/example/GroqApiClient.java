@@ -32,8 +32,7 @@ public class GroqApiClient {
                   "messages": [
                     {
                       "role": "system",
-                      "content": "You are a professional chef. Respond ONLY in English. Always return a valid JSON object with EXACTLY these keys: 'title' (string), 'ingredients' (array of strings), and 'instructions' (string)."
-                    },
+                      "content": "You are a professional chef. Respond ONLY in English. Always return a valid JSON object with EXACTLY these keys: 'title' (string), 'ingredients' (array of strings with quantities like '200g flour', '500ml water'), and 'instructions' (string)."                             },
                     {
                       "role": "user",
                       "content": "%s"

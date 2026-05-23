@@ -16,5 +16,14 @@
             "cucumber"
         ],
         "title": "Simple Salad"
+    },
+    {
+        "instructions": "Preheat the oven to 180°C. Cook the pasta according to package instructions, then mix with heavy cream and grated cheese. Transfer to a baking dish, top with extra cheese, and bake for 15-20 minutes or until golden brown.",
+        "ingredients": [
+            "200g pasta",
+            "150g cheese",
+            "200ml heavy cream"
+        ],
+        "title": "Creamy Pasta Bake"
     }
 ]
