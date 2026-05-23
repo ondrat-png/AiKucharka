@@ -9,8 +9,11 @@ public class MainWindow extends JFrame {
     private JTextArea ingredientField;
     private JButton generateButton;
     private JButton favoritesButton;
+    private FileRecipeStorage storage;
 
     public MainWindow() {
+        this.storage = new FileRecipeStorage();
+
         this.setTitle("Recipe Generator");
         this.setSize(400, 300);
 
@@ -21,7 +24,6 @@ public class MainWindow extends JFrame {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JLabel infoLabel = new JLabel("Enter ingredients:");
-        // Změna na písmo Arial, tučně (BOLD), velikost 16
         infoLabel.setFont(new Font("Arial", Font.BOLD, 16));
         mainPanel.add(infoLabel, BorderLayout.NORTH);
 
@@ -55,7 +57,7 @@ public class MainWindow extends JFrame {
             try {
                 GroqApiClient apiClient = new GroqApiClient();
                 Recipe generatedRecipe = apiClient.generateRecipe(ingredients);
-                RecipeWindow recipeWindow = new RecipeWindow(generatedRecipe);
+                RecipeWindow recipeWindow = new RecipeWindow(generatedRecipe, storage);
                 recipeWindow.setVisible(true);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this,
@@ -66,8 +68,11 @@ public class MainWindow extends JFrame {
         });
 
         favoritesButton.addActionListener(e -> {
-            System.out.println("Opening favorites");
+            try {
+                FavoritesWindow favoritesWindow = new FavoritesWindow(storage.getAllRecipes());
+                favoritesWindow.setVisible(true);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error opening favorites: " + ex.getMessage());            }
         });
     }
-
 }
