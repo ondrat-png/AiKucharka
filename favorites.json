@@ -1,0 +1,20 @@
+[
+    {
+        "instructions": "Cook pasta according to package directions, then combine with melted cheese and heavy cream. Stir until the cheese is well coated and the cream is heated through, season with salt and pepper to taste. Serve hot and enjoy.",
+        "ingredients": [
+            "pasta",
+            "cheese",
+            "cream"
+        ],
+        "title": "Creamy Cheese Pasta"
+    },
+    {
+        "instructions": "Cut all the ingredients into bite-sized pieces, then combine them in a bowl and serve.",
+        "ingredients": [
+            "tomato",
+            "lettuce",
+            "cucumber"
+        ],
+        "title": "Simple Salad"
+    }
+]

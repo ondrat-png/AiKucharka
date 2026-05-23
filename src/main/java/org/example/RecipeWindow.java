@@ -2,14 +2,18 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class RecipeWindow extends JFrame {
 
     private Recipe currentRecipe;
     private JButton saveButton;
+    private FileRecipeStorage storage;
 
-    public RecipeWindow(Recipe recipe) {
+    public RecipeWindow(Recipe recipe, FileRecipeStorage storage) {
         this.currentRecipe = recipe;
+        this.storage = storage;
+
         this.setTitle("Your Recipe: " + recipe.getTitle());
         this.setSize(500, 400);
 
@@ -24,7 +28,7 @@ public class RecipeWindow extends JFrame {
         recipeTextArea.setWrapStyleWord(true);
 
         String displayText = "TITLE: " + recipe.getTitle() + "\n" +
-                "INGREDIENTS:\n" + recipe.getIngredients() + "\n" +
+                "INGREDIENTS:\n" + formatIngredients(recipe.getIngredients()) + "\n" +
                 "INSTRUCTIONS:\n" + recipe.getInstructions();
 
         recipeTextArea.setText(displayText);
@@ -38,8 +42,22 @@ public class RecipeWindow extends JFrame {
         this.add(mainPanel);
 
         saveButton.addActionListener(e -> {
-            System.out.println("Saving recipe: " + currentRecipe.getTitle());
+            try {
+                this.storage.saveRecipe(currentRecipe);
+                JOptionPane.showMessageDialog(this, "Recipe saved to favorites!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                saveButton.setEnabled(false);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error saving recipe: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);            }
         });
 
     }
+
+    private String formatIngredients(ArrayList<String> ingredients) {
+        String result = "";
+        for (String ingredient : ingredients) {
+            result += ingredient + "\n";
+        }
+        return result;
+    }
 }
+
