@@ -17,6 +17,12 @@ public class FileRecipeStorage implements RecipeStorage {
         loadRecipeFromFile();
     }
 
+    /**
+     * save recipe to arraylist and then save to file
+     * prevents from saving duplicates
+     * @param recipe the object to be saved
+     * @throws Exception if it is null or if there is already a recipe with the same title
+     */
     @Override
     public void saveRecipe(Recipe recipe) throws Exception {
         if(recipe == null){
@@ -33,12 +39,19 @@ public class FileRecipeStorage implements RecipeStorage {
         saveRecipesToFile();
     }
 
+    /**
+     * @return arraylist of saved recipe
+     */
     @Override
-    public ArrayList<Recipe> getAllRecipes() throws Exception {
+    public ArrayList<Recipe> getAllRecipes(){
         return saveRecipes;
     }
 
 
+    /**
+     * Converts the internal list of recipes into a JSON array and writes it to the local file.
+     * Formats the output with an indentation of 4 spaces for better readability.
+     */
     private void saveRecipesToFile() {
         try {
             JSONArray jsonArray = new JSONArray();
@@ -61,6 +74,13 @@ public class FileRecipeStorage implements RecipeStorage {
         }
     }
 
+
+    /**
+     * read the file and convert the content to json array
+     * get the information about the recipe
+     * created new recipe
+     * catch error if file not found or loading
+     */
     public void  loadRecipeFromFile(){
         try {
             FileReader fileReader = new FileReader(FILE_NAME);
