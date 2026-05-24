@@ -11,6 +11,11 @@ public class MainWindow extends JFrame {
     private JButton favoritesButton;
     private FileRecipeStorage storage;
 
+    /**
+     * Constructor for MainWindow, initializes the main window of the application with input field for ingredients
+     * buttons for generating recipes and viewing favorites.
+     * sets up a graphical components
+     */
     public MainWindow() {
         this.storage = new FileRecipeStorage();
 
@@ -43,9 +48,10 @@ public class MainWindow extends JFrame {
 
         this.add(mainPanel);
 
+        // button to generate recipe
         generateButton.addActionListener(e -> {
             String ingredients = ingredientField.getText();
-
+            // check if the input is valid
             if (ingredients.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter ingredients");
                 return;
@@ -54,6 +60,7 @@ public class MainWindow extends JFrame {
             ingredients = ingredients.replace("\n", ", ");
             System.out.println("Generating recipe for ingredients: " + ingredients);
 
+            // try to generate the recipe via API and open the result window
             try {
                 GroqApiClient apiClient = new GroqApiClient();
                 Recipe generatedRecipe = apiClient.generateRecipe(ingredients);
@@ -67,6 +74,7 @@ public class MainWindow extends JFrame {
             }
         });
 
+        // button to open favorites window
         favoritesButton.addActionListener(e -> {
             try {
                 FavoritesWindow favoritesWindow = new FavoritesWindow(storage.getAllRecipes(), storage);
@@ -76,6 +84,9 @@ public class MainWindow extends JFrame {
         });
     }
 
+    /**
+     * Makes the main window visible on the screen.
+     */
     public void showMainWindow() {
         this.setVisible(true);
     }
