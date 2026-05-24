@@ -10,12 +10,18 @@ public class RecipeWindow extends JFrame {
     private JButton saveButton;
     private FileRecipeStorage storage;
 
+    /**
+     * Constructs the recipe window, displaying the details of the generated recipe.
+     * @param recipe the reecipe to be displayed
+     * @param storage is used to store the saved recipe
+     */
     public RecipeWindow(Recipe recipe, FileRecipeStorage storage) {
         this.currentRecipe = recipe;
         this.storage = storage;
 
         this.setTitle("Your Recipe: " + recipe.getTitle());
         this.setSize(500, 400);
+        this.setLocationRelativeTo(null);
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -41,10 +47,13 @@ public class RecipeWindow extends JFrame {
 
         this.add(mainPanel);
 
+        // button to save the recipe to favorites
         saveButton.addActionListener(e -> {
             try {
                 this.storage.saveRecipe(currentRecipe);
                 JOptionPane.showMessageDialog(this, "Recipe saved to favorites!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                // disable the button after succesful save to prevent duplicate saves
                 saveButton.setEnabled(false);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error saving recipe: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);            }
@@ -52,6 +61,11 @@ public class RecipeWindow extends JFrame {
 
     }
 
+    /**
+     * formats the list of ingredients
+     * @param ingredients the list of ingredients
+     * @return a format string witch ingredients on each line
+     */
     private String formatIngredients(ArrayList<String> ingredients) {
         String result = "";
         for (String ingredient : ingredients) {

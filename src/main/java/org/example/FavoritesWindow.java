@@ -11,12 +11,18 @@ public class FavoritesWindow  extends JFrame {
     private ArrayList<Recipe> favoriteRecipes;
     private FileRecipeStorage storage;
 
+    /**
+     * Constructs the favorites window and populates the list with saved recipes.
+     * @param favoriteRecipes the list of recipes to be displayed in the window
+     * @param storage local storage system
+     */
     public  FavoritesWindow(ArrayList<Recipe> favoriteRecipes, FileRecipeStorage storage) {
         this.favoriteRecipes = favoriteRecipes;
         this.storage = storage;
 
         this.setTitle("Favorite recipes");
         this.setSize(400, 300);
+        this.setLocationRelativeTo(null);
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -43,6 +49,7 @@ public class FavoritesWindow  extends JFrame {
 
         this.add(mainPanel);
 
+        // add mouse listener to the list to open the recipe details when double-clicked
         recipeList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -57,6 +64,7 @@ public class FavoritesWindow  extends JFrame {
             }
         });
 
+        //action listener to close the window
         closeButton.addActionListener(e -> {
             this.dispose();
         });

@@ -21,6 +21,7 @@ public class MainWindow extends JFrame {
 
         this.setTitle("Recipe Generator");
         this.setSize(400, 300);
+        this.setLocationRelativeTo(null);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
