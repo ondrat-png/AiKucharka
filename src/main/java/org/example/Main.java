@@ -1,18 +1,18 @@
 package org.example;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
 
         try {
-            UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatDarkLaf());
-        } catch (Exception e) {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
 
-        MainWindow window = new MainWindow();
-        window.setVisible(true);
-
+        MainWindow mainWindow = new MainWindow();
+        mainWindow.showMainWindow();
     }
 }

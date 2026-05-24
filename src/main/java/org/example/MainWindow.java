@@ -75,4 +75,8 @@ public class MainWindow extends JFrame {
                 JOptionPane.showMessageDialog(this, "Error opening favorites: " + ex.getMessage());            }
         });
     }
+
+    public void showMainWindow() {
+        this.setVisible(true);
+    }
 }
