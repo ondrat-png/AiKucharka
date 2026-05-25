@@ -2,6 +2,8 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class MainWindow extends JFrame {
@@ -57,6 +59,7 @@ public class MainWindow extends JFrame {
                 JOptionPane.showMessageDialog(this, "Please enter ingredients");
                 return;
             }
+            generateButton.setEnabled(false);
 
             ingredients = ingredients.replace("\n", ", ");
             System.out.println("Generating recipe for ingredients: " + ingredients);
@@ -66,8 +69,12 @@ public class MainWindow extends JFrame {
                 GroqApiClient apiClient = new GroqApiClient();
                 Recipe generatedRecipe = apiClient.generateRecipe(ingredients);
                 RecipeWindow recipeWindow = new RecipeWindow(generatedRecipe, storage);
+
+                setupButtonUnlockOnClose(generateButton, recipeWindow);
                 recipeWindow.setVisible(true);
+
             } catch (Exception ex) {
+                generateButton.setEnabled(true);
                 JOptionPane.showMessageDialog(this,
                         "Error communicating with AI: " + ex.getMessage(),
                         "Connection Error",
@@ -78,9 +85,14 @@ public class MainWindow extends JFrame {
         // button to open favorites window
         favoritesButton.addActionListener(e -> {
             try {
+                favoritesButton.setEnabled(false);
                 FavoritesWindow favoritesWindow = new FavoritesWindow(storage.getAllRecipes(), storage);
+
+                setupButtonUnlockOnClose(favoritesButton, favoritesWindow);
                 favoritesWindow.setVisible(true);
+
             } catch (Exception ex) {
+                favoritesButton.setEnabled(true);
                 JOptionPane.showMessageDialog(this, "Error opening favorites: " + ex.getMessage());            }
         });
     }
@@ -90,5 +102,20 @@ public class MainWindow extends JFrame {
      */
     public void showMainWindow() {
         this.setVisible(true);
+    }
+
+    /**
+     * re-enable the button after closing opened window
+     * prevents multiple window opened at the same time
+     * @param button the specific button
+     * @param window the specific window
+     */
+    private void setupButtonUnlockOnClose(JButton button, JFrame window) {
+        window.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                button.setEnabled(true);
+            }
+        });
     }
 }
