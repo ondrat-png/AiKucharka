@@ -119,6 +119,13 @@ public class FileRecipeStorage implements RecipeStorage {
         } catch (IOException e) {
             System.out.println("Error loading recipes: " + e.getMessage());
         }
+    }
 
+    public void deleteRecipe(Recipe recipe){
+        if (recipe != null){
+            saveRecipes.remove(recipe);
+            saveRecipesToFile();
+            System.out.println("Recipe deleted: " + recipe.getTitle());
+        }
     }
 }
