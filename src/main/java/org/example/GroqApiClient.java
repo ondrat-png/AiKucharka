@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class GroqApiClient {
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = System.getenv("GROQ_API_KEY");
     private static final String API_URL = "https://api.groq.com/openai/v1/chat/completions";
 
     /**
