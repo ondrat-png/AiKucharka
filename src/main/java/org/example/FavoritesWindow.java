@@ -44,8 +44,14 @@ public class FavoritesWindow  extends JFrame {
         JScrollPane scrollPane = new JScrollPane(recipeList);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
+        JPanel buttonPanel = new JPanel();
+        JButton removeButton = new JButton("Remove");
         JButton closeButton = new JButton("Close");
-        mainPanel.add(closeButton, BorderLayout.SOUTH);
+
+        buttonPanel.add(removeButton);
+        buttonPanel.add(closeButton);
+
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         this.add(mainPanel);
 
@@ -63,6 +69,39 @@ public class FavoritesWindow  extends JFrame {
                 }
             }
         });
+
+        /**
+         * action listener to remove from favorite
+         * it checks if a recipe is selected
+         * asks for confirmation before deleting the recipe
+         */
+        removeButton.addActionListener(e -> {
+            int selectedIndex = recipeList.getSelectedIndex();
+
+            if (selectedIndex < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a recipe to remove.", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            Recipe selectedRecipe = favoriteRecipes.get(selectedIndex);
+
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to delete '" + selectedRecipe.getTitle() + "'?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    storage.deleteRecipe(selectedRecipe);
+                    recipeListModel.remove(selectedIndex);
+                    JOptionPane.showMessageDialog(this, "Recipe removed from favorites.", "Deleted", JOptionPane.INFORMATION_MESSAGE);
+                }catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Error deleting recipe: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        });
+
+
 
         //action listener to close the window
         closeButton.addActionListener(e -> {
