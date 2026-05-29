@@ -20,30 +20,57 @@ public class RecipeWindow extends JFrame {
         this.storage = storage;
 
         this.setTitle("Your Recipe: " + recipe.getTitle());
-        this.setSize(500, 400);
+        this.setSize(500, 450);
         this.setLocationRelativeTo(null);
-
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        //Horni panel
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setLayout(new BorderLayout(0,10));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        JLabel titleLabel = new JLabel(" 🍽️ " + recipe.getTitle().toUpperCase());
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        titleLabel.setForeground(Color.WHITE);
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+
+        //Prostredni panel
         JTextArea recipeTextArea = new JTextArea();
         recipeTextArea.setEditable(false);
         recipeTextArea.setLineWrap(true);
         recipeTextArea.setWrapStyleWord(true);
+        recipeTextArea.setFont(new Font("Arial", Font.PLAIN, 15));
+        recipeTextArea.setMargin(new Insets(15, 15, 15, 15));
+        recipeTextArea.setForeground(Color.WHITE);
 
-        String displayText = "TITLE: " + recipe.getTitle() + "\n" +
-                "INGREDIENTS:\n" + formatIngredients(recipe.getIngredients()) + "\n" +
-                "INSTRUCTIONS:\n" + recipe.getInstructions();
+        String displayText =
+                "🛒 INGREDIENTS\n" +
+                        "--------------------------------------------------\n" +
+                        formatIngredients(recipe.getIngredients()) + "\n\n" +
+
+                        "📖 INSTRUCTIONS\n" +
+                        "--------------------------------------------------\n" +
+                        recipe.getInstructions();
 
         recipeTextArea.setText(displayText);
 
         JScrollPane scrollPane = new JScrollPane(recipeTextArea);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-        saveButton = new JButton("Save to Favorites");
-        mainPanel.add(saveButton, BorderLayout.SOUTH);
+        //Dolni panel
+        JPanel buttonPanel = new JPanel();
+
+        saveButton = new JButton("❤️ Save to Favorites");
+        saveButton.setPreferredSize(new Dimension(180, 25));
+        saveButton.setBackground(Color.decode("#E47A34"));
+        saveButton.setForeground(Color.WHITE);
+        saveButton.setFont(new Font("Arial", Font.BOLD, 14));
+        saveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+
+        buttonPanel.add(saveButton);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         this.add(mainPanel);
 
@@ -55,6 +82,8 @@ public class RecipeWindow extends JFrame {
 
                 // disable the button after succesful save to prevent duplicate saves
                 saveButton.setEnabled(false);
+                saveButton.setText("✅ Saved");
+                saveButton.setBackground(Color.decode("#555555"));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error saving recipe: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);            }
         });
@@ -69,7 +98,7 @@ public class RecipeWindow extends JFrame {
     private String formatIngredients(ArrayList<String> ingredients) {
         String result = "";
         for (String ingredient : ingredients) {
-            result += ingredient + "\n";
+            result += "- " + ingredient + "\n";
         }
         return result;
     }

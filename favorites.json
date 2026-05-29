@@ -1,1 +1,11 @@
-[]
+[{
+    "instructions": "Cook pasta according to package directions, then set aside. Chop the chicken and cook in a pan until done. Add diced tomatoes and cook for a few minutes. Combine cooked pasta, chicken, and tomatoes, then stir in cream and cheese until the cheese is melted and the sauce is creamy. Serve hot.",
+    "ingredients": [
+        "200g pasta",
+        "300g chicken breast",
+        "2 medium tomatoes",
+        "100g cheese",
+        "200ml cream"
+    ],
+    "title": "Creamy Chicken Pasta"
+}]

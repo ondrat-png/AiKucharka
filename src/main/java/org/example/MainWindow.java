@@ -22,31 +22,66 @@ public class MainWindow extends JFrame {
         this.storage = new FileRecipeStorage();
 
         this.setTitle("Recipe Generator");
-        this.setSize(400, 300);
+        this.setSize(500, 450);
         this.setLocationRelativeTo(null);
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //Cely panel
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setLayout(new BorderLayout(0, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JLabel infoLabel = new JLabel("Enter ingredients:");
-        infoLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        mainPanel.add(infoLabel, BorderLayout.NORTH);
+        //Horni panel
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 
+        JLabel titleLabel = new JLabel("What's cooking today?");
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+
+        JLabel infoLabel = new JLabel("Enter your ingredients below: 🍅 🥦 🥩");
+        infoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        infoLabel.setForeground(Color.LIGHT_GRAY);
+
+        headerPanel.add(titleLabel);
+        headerPanel.add(Box.createVerticalStrut(5));
+        headerPanel.add(infoLabel);
+
+        mainPanel.add(headerPanel, BorderLayout.NORTH);
+
+        //Prostredni panel
         ingredientField = new JTextArea();
+        ingredientField.setFont(new Font("Arial", Font.PLAIN, 15));
+        ingredientField.setForeground(Color.WHITE);
         JScrollPane scrollPane = new JScrollPane(ingredientField);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         mainPanel.add(scrollPane, BorderLayout.CENTER);
+        ingredientField.setMargin(new Insets(10, 10, 10, 10));
 
+        //Dolni panel
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 0));
 
-        generateButton = new JButton("Generate recipe");
-        favoritesButton = new JButton("Favorites");
+        Dimension buttonSize = new Dimension(180, 25);
+
+        generateButton = new JButton("✨Generate recipe ✨");
+        generateButton.setPreferredSize(buttonSize);
+        generateButton.setBackground(Color.decode("#E47A34"));
+        generateButton.setForeground(Color.WHITE);
+        generateButton.setFont(new Font("Arial", Font.BOLD, 14));
+        generateButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+
+        favoritesButton = new JButton("❤️ Favorites");
+        favoritesButton.setPreferredSize(buttonSize);
+        favoritesButton.setBackground(Color.decode("#555555"));
+        favoritesButton.setForeground(Color.WHITE);
+        favoritesButton.setFont(new Font("Arial", Font.BOLD, 14));
+        favoritesButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
 
         buttonPanel.add(generateButton);
         buttonPanel.add(favoritesButton);
-
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         this.add(mainPanel);
@@ -70,7 +105,7 @@ public class MainWindow extends JFrame {
                 Recipe generatedRecipe = apiClient.generateRecipe(ingredients);
                 RecipeWindow recipeWindow = new RecipeWindow(generatedRecipe, storage);
 
-                setupButtonUnlockOnClose(generateButton, recipeWindow);
+                setupUnlockOnClose(generateButton, recipeWindow);
                 recipeWindow.setVisible(true);
 
             } catch (Exception ex) {
@@ -88,7 +123,7 @@ public class MainWindow extends JFrame {
                 favoritesButton.setEnabled(false);
                 FavoritesWindow favoritesWindow = new FavoritesWindow(storage.getAllRecipes(), storage);
 
-                setupButtonUnlockOnClose(favoritesButton, favoritesWindow);
+                setupUnlockOnClose(favoritesButton, favoritesWindow);
                 favoritesWindow.setVisible(true);
 
             } catch (Exception ex) {
@@ -107,14 +142,14 @@ public class MainWindow extends JFrame {
     /**
      * re-enable the button after closing opened window
      * prevents multiple window opened at the same time
-     * @param button the specific button
+     * @param component the specific component
      * @param window the specific window
      */
-    private void setupButtonUnlockOnClose(JButton button, JFrame window) {
+    public static void setupUnlockOnClose(JComponent component, JFrame window) {
         window.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                button.setEnabled(true);
+                component.setEnabled(true);
             }
         });
     }

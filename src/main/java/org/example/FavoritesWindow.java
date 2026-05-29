@@ -21,17 +21,22 @@ public class FavoritesWindow  extends JFrame {
         this.storage = storage;
 
         this.setTitle("Favorite recipes");
-        this.setSize(400, 300);
+        this.setSize(500, 450);
         this.setLocationRelativeTo(null);
-
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        //Horni panel
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setLayout(new BorderLayout(0,10));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JLabel titleLabel = new JLabel("Your Saved Recipes:");
+
+        JLabel titleLabel = new JLabel("❤️ Your Saved Recipes:");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        titleLabel.setForeground(Color.WHITE);
         mainPanel.add(titleLabel, BorderLayout.NORTH);
 
+        //Prostredni panel
         DefaultListModel<String> recipeListModel = new DefaultListModel<>();
         if(favoriteRecipes != null) {
             for (Recipe recipe : favoriteRecipes) {
@@ -40,17 +45,36 @@ public class FavoritesWindow  extends JFrame {
         }
 
         JList<String> recipeList = new JList<>(recipeListModel);
+        recipeList.setFont(new Font("Arial", Font.PLAIN, 15));
+        recipeList.setForeground(Color.WHITE);
+        recipeList.setToolTipText("Double-click a recipe to view details");
 
         JScrollPane scrollPane = new JScrollPane(recipeList);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
+        //Spodni panel
         JPanel buttonPanel = new JPanel();
-        JButton removeButton = new JButton("Remove");
-        JButton closeButton = new JButton("Close");
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 0));
+
+        Dimension buttonSize = new Dimension(180, 25);
+
+        JButton removeButton = new JButton("🗑️ Remove");
+        removeButton.setPreferredSize(buttonSize);
+        removeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        removeButton.setBackground(Color.decode("#D9534F"));
+        removeButton.setForeground(Color.WHITE);
+        removeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        JButton closeButton = new JButton("❌ Close");
+        closeButton.setPreferredSize(buttonSize);
+        closeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        closeButton.setBackground(Color.decode("#555555"));
+        closeButton.setForeground(Color.WHITE);
+        closeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         buttonPanel.add(removeButton);
         buttonPanel.add(closeButton);
-
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         this.add(mainPanel);
@@ -59,11 +83,15 @@ public class FavoritesWindow  extends JFrame {
         recipeList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() == 2 && recipeList.isEnabled()) {
                     int selectedIndex = recipeList.getSelectedIndex();
+
                     if (selectedIndex >= 0) {
+                        recipeList.setEnabled(false);
                         Recipe selectedRecipe = favoriteRecipes.get(selectedIndex);
                         RecipeWindow recipeWindow = new RecipeWindow(selectedRecipe, storage);
+
+                        MainWindow.setupUnlockOnClose(recipeList, recipeWindow);
                         recipeWindow.setVisible(true);
                     }
                 }
@@ -92,6 +120,7 @@ public class FavoritesWindow  extends JFrame {
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
                     storage.deleteRecipe(selectedRecipe);
+                    favoriteRecipes.remove(selectedIndex);
                     recipeListModel.remove(selectedIndex);
                     JOptionPane.showMessageDialog(this, "Recipe removed from favorites.", "Deleted", JOptionPane.INFORMATION_MESSAGE);
                 }catch (Exception ex) {
