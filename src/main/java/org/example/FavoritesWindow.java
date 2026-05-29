@@ -116,7 +116,6 @@ public class FavoritesWindow  extends JFrame {
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
                     storage.deleteRecipe(selectedRecipe);
-                    favoriteRecipes.remove(selectedIndex);
                     recipeListModel.remove(selectedIndex);
                     JOptionPane.showMessageDialog(this, "Recipe removed from favorites.", "Deleted", JOptionPane.INFORMATION_MESSAGE);
                 }catch (Exception ex) {
