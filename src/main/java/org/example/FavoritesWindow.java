@@ -98,11 +98,7 @@ public class FavoritesWindow  extends JFrame {
             }
         });
 
-        /**
-         * action listener to remove from favorite
-         * it checks if a recipe is selected
-         * asks for confirmation before deleting the recipe
-         */
+        // add action listener to the remove button to delete the selected recipe from favorites
         removeButton.addActionListener(e -> {
             int selectedIndex = recipeList.getSelectedIndex();
 
