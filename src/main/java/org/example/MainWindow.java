@@ -26,12 +26,11 @@ public class MainWindow extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Cely panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        //Horni panel
+        //Upper panel
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 
@@ -49,7 +48,7 @@ public class MainWindow extends JFrame {
 
         mainPanel.add(headerPanel, BorderLayout.NORTH);
 
-        //Prostredni panel
+        //Center panel
         ingredientField = new JTextArea();
         ingredientField.setFont(new Font("Arial", Font.PLAIN, 15));
         ingredientField.setForeground(Color.WHITE);
@@ -58,7 +57,7 @@ public class MainWindow extends JFrame {
         mainPanel.add(scrollPane, BorderLayout.CENTER);
         ingredientField.setMargin(new Insets(10, 10, 10, 10));
 
-        //Dolni panel
+        //Bottom panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 0));
 

@@ -1,11 +1,18 @@
-[{
-    "instructions": "Cook pasta according to package directions, then set aside. Chop the chicken and cook in a pan until done. Add diced tomatoes and cook for a few minutes. Combine cooked pasta, chicken, and tomatoes, then stir in cream and cheese until the cheese is melted and the sauce is creamy. Serve hot.",
-    "ingredients": [
-        "200g pasta",
-        "300g chicken breast",
-        "2 medium tomatoes",
-        "100g cheese",
-        "200ml cream"
-    ],
-    "title": "Creamy Chicken Pasta"
-}]
+[
+    {
+        "instructions": "Cook pasta according to package directions, then set aside. Chop the chicken and cook in a pan until done. Add diced tomatoes and cook for a few minutes. Combine cooked pasta, chicken, and tomatoes, then stir in cream and cheese until the cheese is melted and the sauce is creamy. Serve hot.",
+        "ingredients": [
+            "200g pasta",
+            "300g chicken breast",
+            "2 medium tomatoes",
+            "100g cheese",
+            "200ml cream"
+        ],
+        "title": "Creamy Chicken Pasta"
+    },
+    {
+        "instructions": "Rinse the rice in a fine mesh sieve until the water runs clear. In a medium saucepan, combine the rice and 400ml of water. Bring to a boil, then reduce the heat to low, cover, and simmer for about 15-20 minutes or until the water is absorbed and the rice is tender.",
+        "ingredients": ["200g rice"],
+        "title": "Simple Boiled Rice"
+    }
+]

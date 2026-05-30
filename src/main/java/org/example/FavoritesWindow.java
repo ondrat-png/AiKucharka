@@ -34,9 +34,10 @@ public class FavoritesWindow  extends JFrame {
         JLabel titleLabel = new JLabel("❤️ Your Saved Recipes:");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
         titleLabel.setForeground(Color.WHITE);
+
         mainPanel.add(titleLabel, BorderLayout.NORTH);
 
-        //Prostredni panel
+        //Center panel
         DefaultListModel<String> recipeListModel = new DefaultListModel<>();
         if(favoriteRecipes != null) {
             for (Recipe recipe : favoriteRecipes) {
@@ -53,7 +54,7 @@ public class FavoritesWindow  extends JFrame {
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-        //Spodni panel
+        //Bottom panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 0));
 
@@ -124,8 +125,6 @@ public class FavoritesWindow  extends JFrame {
             }
 
         });
-
-
 
         //action listener to close the window
         closeButton.addActionListener(e -> {

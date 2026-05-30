@@ -3,6 +3,7 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.net.URL;
 
 public class RecipeWindow extends JFrame {
 
@@ -20,21 +21,46 @@ public class RecipeWindow extends JFrame {
         this.storage = storage;
 
         this.setTitle("Your Recipe: " + recipe.getTitle());
-        this.setSize(500, 450);
+        this.setSize(500, 700);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        //Horni panel
+        //Upper panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0,10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new BorderLayout(0,10));
+
         JLabel titleLabel = new JLabel(" 🍽️ " + recipe.getTitle().toUpperCase());
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
         titleLabel.setForeground(Color.WHITE);
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        headerPanel.add(titleLabel, BorderLayout.NORTH);
 
-        //Prostredni panel
+
+        JLabel imageLabel = new JLabel("Loading image... ⏳", SwingConstants.CENTER);
+        imageLabel.setForeground(Color.LIGHT_GRAY);
+        headerPanel.add(imageLabel, BorderLayout.CENTER);
+
+        mainPanel.add(headerPanel, BorderLayout.NORTH);
+
+        new Thread(() -> {
+            try {
+                String imageUrl = UnsplashApiClient.getImageUrl(recipe.getTitle());
+                ImageIcon imageIcon = new ImageIcon(new URL(imageUrl));
+                Image image = imageIcon.getImage().getScaledInstance(450, 250, Image.SCALE_SMOOTH);
+
+                SwingUtilities.invokeLater(() -> {
+                    imageLabel.setText("");
+                    imageLabel.setIcon(new ImageIcon(image));
+                });
+            } catch (Exception e) {
+                imageLabel.setText("Image not available ❌");
+            }
+        }).start();
+
+        //Center panel
         JTextArea recipeTextArea = new JTextArea();
         recipeTextArea.setEditable(false);
         recipeTextArea.setLineWrap(true);
@@ -58,7 +84,7 @@ public class RecipeWindow extends JFrame {
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-        //Dolni panel
+        //Bottom panel
         JPanel buttonPanel = new JPanel();
 
         saveButton = new JButton("❤️ Save to Favorites");
