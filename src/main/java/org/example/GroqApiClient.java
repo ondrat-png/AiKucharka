@@ -35,7 +35,7 @@ public class GroqApiClient {
                   ]
                 }
                 """.formatted(prompt);
-        // 3. created HTTP client and request
+        // 2. created HTTP client and request
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL))
@@ -45,7 +45,7 @@ public class GroqApiClient {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        // 4. processing answer
+        // 3. processing answer
         if (response.statusCode() == 200) {
             JSONObject jsonResponse = new JSONObject(response.body());
             JSONArray choices = jsonResponse.getJSONArray("choices");
@@ -63,7 +63,7 @@ public class GroqApiClient {
             for (int i = 0; i < ingredientsArray.length(); i++) {
                 parsedIngredients.add(ingredientsArray.getString(i));
             }
-            // 5. final recipe
+            // 4. final recipe
             Recipe finalRecipe = new Recipe(title, instructions);
             finalRecipe.setIngredients(parsedIngredients);
             return finalRecipe;

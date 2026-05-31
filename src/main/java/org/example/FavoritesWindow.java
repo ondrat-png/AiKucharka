@@ -25,12 +25,11 @@ public class FavoritesWindow  extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        //Horni panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0,10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-
+        //Upper panel
         JLabel titleLabel = new JLabel("❤️ Your Saved Recipes:");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
         titleLabel.setForeground(Color.WHITE);

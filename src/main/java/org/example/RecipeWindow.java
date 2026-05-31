@@ -25,11 +25,11 @@ public class RecipeWindow extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        //Upper panel
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0,10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        //Upper panel
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BorderLayout(0,10));
 
